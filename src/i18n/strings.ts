@@ -10,6 +10,11 @@ export const strings = {
       subtitle: "Secure USDT contribution with transparent on-chain stats and VIP rewards.",
       cta: "Join Investment",
     },
+    wallet: {
+      connect: "Connect MetaMask",
+      connecting: "Connecting…",
+      disconnect: "Disconnect",
+    },
     stats: {
       title: "Live Statistics",
       totalSale: "Total Investment",
@@ -92,6 +97,11 @@ export const strings = {
       title: "BSC 专属投资",
       subtitle: "USDT 安全参与，链上统计透明，VIP 奖励。",
       cta: "参与投资",
+    },
+    wallet: {
+      connect: "连接 MetaMask",
+      connecting: "连接中…",
+      disconnect: "断开连接",
     },
     stats: {
       title: "实时数据",
