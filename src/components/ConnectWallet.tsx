@@ -1,11 +1,13 @@
 'use client';
 
 import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useI18n } from "@/i18n/context";
 
 export function ConnectWallet() {
   const { address, isConnected } = useAccount();
   const { connect, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
+  const { t } = useI18n();
 
   const injectedConnector = connectors.find((c) => c.id === "injected") ?? connectors[0];
 
@@ -19,7 +21,7 @@ export function ConnectWallet() {
           onClick={() => disconnect()}
           className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold hover:bg-gold/20"
         >
-          Disconnect
+          {t.wallet.disconnect}
         </button>
       </div>
     );
@@ -32,7 +34,7 @@ export function ConnectWallet() {
       onClick={() => injectedConnector && connect({ connector: injectedConnector })}
       className="rounded-full border border-gold/40 bg-gold px-3 py-1.5 text-xs font-medium text-navy hover:bg-gold/90 disabled:opacity-50"
     >
-      {isPending ? "Connecting…" : "Connect MetaMask"}
+      {isPending ? t.wallet.connecting : t.wallet.connect}
     </button>
   );
 }
