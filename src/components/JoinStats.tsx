@@ -25,6 +25,9 @@ export function JoinStats() {
   const { address, isConnected } = useAccount();
   const enabled = hasContractConfig();
 
+  const chainAmount = totalSale ? Number(formatUnits(totalSale as bigint, 18)) : 0;
+  const displayTotal = 50000 + chainAmount;
+  
   const { data: totalSale } = useReadContract({
     address: env.dappAddress,
     abi: dappAbi,
@@ -46,7 +49,11 @@ export function JoinStats() {
     <section className="mt-8">
       <h2 className="font-display text-xl text-white">{t.stats.title}</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <StatCard label={t.stats.totalSale} value={formatUsdt(totalSale as bigint | undefined)} />
+        /*<StatCard label={t.stats.totalSale} value={formatUsdt(totalSale as bigint | undefined)} />*/
+        <StatCard
+          label={t.stats.totalSale}
+          value={displayTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+        />
         <StatCard label={t.stats.myContribution} value={personal} />
       </div>
     </section>
