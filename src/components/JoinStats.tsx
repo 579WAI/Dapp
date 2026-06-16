@@ -25,8 +25,6 @@ export function JoinStats() {
   const { address, isConnected } = useAccount();
   const enabled = hasContractConfig();
 
-  const chainAmount = totalSale ? Number(formatUnits(totalSale as bigint, 18)) : 0;
-  const displayTotal = 78000 + chainAmount;
   
   const { data: totalSale } = useReadContract({
     address: env.dappAddress,
@@ -44,7 +42,9 @@ export function JoinStats() {
   });
 
   const personal = isConnected ? formatUsdt(myContribution as bigint | undefined) : t.stats.connectHint;
-
+  const chainAmount = totalSale ? Number(formatUnits(totalSale as bigint, 18)) : 0;
+  const displayTotal = 78000 + chainAmount;
+  
   return (
     <section className="mt-8">
       <h2 className="font-display text-xl text-white">{t.stats.title}</h2>
