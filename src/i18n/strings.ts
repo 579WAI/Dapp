@@ -17,8 +17,8 @@ export const strings = {
     },
     stats: {
       title: "Live Statistics",
-      totalSale: "Total Investment",
-      myContribution: "My Contribution",
+      totalSale: "Total Investment (USDT)",
+      myContribution: "My Contribution (USDT)",
       vipLevel: "VIP Level",
       teamPerformance: "Team Performance",
       connectHint: "Connect wallet to view personal stats",
@@ -105,8 +105,8 @@ export const strings = {
     },
     stats: {
       title: "实时数据",
-      totalSale: "投资总额",
-      myContribution: "我的贡献",
+      totalSale: "投资总额 (USDT)",
+      myContribution: "我的贡献 (USDT)",
       vipLevel: "VIP 等级",
       teamPerformance: "团队业绩",
       connectHint: "连接钱包查看个人数据",
