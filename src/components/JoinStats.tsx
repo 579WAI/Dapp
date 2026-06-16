@@ -26,7 +26,7 @@ export function JoinStats() {
   const enabled = hasContractConfig();
 
   const chainAmount = totalSale ? Number(formatUnits(totalSale as bigint, 18)) : 0;
-  const displayTotal = 50000 + chainAmount;
+  const displayTotal = 78000 + chainAmount;
   
   const { data: totalSale } = useReadContract({
     address: env.dappAddress,
