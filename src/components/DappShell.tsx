@@ -10,6 +10,38 @@ import { PrivateSaleModal } from "@/components/PrivateSaleModal";
 import { TeamTab } from "@/components/TeamTab";
 import { parseInviterFromSearch } from "@/lib/inviter";
 
+import { AnnouncementModal } from "@/components/AnnouncementModal";
+
+const ANNOUNCEMENT_KEY = "announcement-dismissed-v1";
+
+export function DappShell() {
+  const [tab, setTab] = useState<AppTab>("join");
+  const [saleOpen, setSaleOpen] = useState(false);
+  const [announcementOpen, setAnnouncementOpen] = useState(false);
+
+  useEffect(() => {
+    setAnnouncementOpen(true)
+  }, []);
+
+  return (
+    <>
+      {/* 原有页面内容 */}
+
+      <AnnouncementModal
+        open={announcementOpen}
+        onClose={() => {
+          localStorage.setItem(ANNOUNCEMENT_KEY, "1");
+          setAnnouncementOpen(false);
+        }}
+      />
+
+      <PrivateSaleModal ... />
+      <BottomNav ... />
+    </>
+  );
+}
+
+
 function DappShellInner() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState<AppTab>("join");
