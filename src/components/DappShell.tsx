@@ -11,7 +11,8 @@ import { PrivateSaleModal } from "@/components/PrivateSaleModal";
 import { TeamTab } from "@/components/TeamTab";
 import { parseInviterFromSearch } from "@/lib/inviter";
 
-const ANNOUNCEMENT_KEY = "announcement-dismissed-v1";
+/** 公告总开关：true = 每次进入都弹；false = 完全不弹 */
+const ANNOUNCEMENT_ENABLED = true;
 
 function DappShellInner() {
   const searchParams = useSearchParams();
@@ -24,17 +25,18 @@ function DappShellInner() {
     return q ? parseInviterFromSearch(`?${q}`) : "";
   }, [searchParams]);
 
-  // 有邀请链接 → 弹私募
   useEffect(() => {
+    if (ANNOUNCEMENT_ENABLED) {
+      setAnnouncementOpen(true);
+      return;
+    }
     if (inviterFromUrl) setSaleOpen(true);
   }, [inviterFromUrl]);
 
-  // 没邀请链接 + 没看过公告 → 弹公告
-  useEffect(() => {
-    if (inviterFromUrl) return;
-    const dismissed = localStorage.getItem(ANNOUNCEMENT_KEY);
-    if (!dismissed) setAnnouncementOpen(true);
-  }, [inviterFromUrl]);
+  const closeAnnouncement = () => {
+    setAnnouncementOpen(false);
+    if (inviterFromUrl) setSaleOpen(true);
+  };
 
   return (
     <>
@@ -47,13 +49,9 @@ function DappShellInner() {
       {tab === "assets" && <DividendsClaim embedded />}
       {tab === "team" && <TeamTab />}
 
-      <AnnouncementModal
-        open={announcementOpen}
-        onClose={() => {
-          localStorage.setItem(ANNOUNCEMENT_KEY, "1");
-          setAnnouncementOpen(false);
-        }}
-      />
+      {ANNOUNCEMENT_ENABLED && (
+        <AnnouncementModal open={announcementOpen} onClose={closeAnnouncement} />
+      )}
 
       <PrivateSaleModal
         open={saleOpen}
