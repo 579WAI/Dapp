@@ -5,6 +5,40 @@ export const strings = {
     brand: "Sails",
     tagline: "Digital Asset Management Company (Singapore)",
     nav: { home: "Home", sale: "Investment" },
+    announcement: {
+      title: "Announcement",
+      confirm: "Got it",
+      body: `Official Announcement
+
+To: Dear 579WAi Investors and Community Members
+
+Hello!
+
+Since the launch of the 579WAi project, we thank every investor for their trust and support. To continuously advance ecosystem development and optimize the asset trading experience, Sails Company hereby officially announces the following regarding its recent core work deployment and development plan:
+
+---
+I. Liquidity Injection
+
+We will inject 10% of our funds specifically into 579WAi's liquidity and permanently lock the liquidity while ensuring safety. Once the liquidity target is reached, we will open 579WAi trading.
+
+II. DApp Ecosystem Development
+
+Building upon the solid foundation of liquidity, we will fully launch the construction of a multi-dimensional ecosystem for DApps, covering on-chain applications, asset management, community incentives, and other areas. This will be implemented in stages to gradually enrich the application scenarios and value support of 579WAi.
+
+III. Digital Exchange Launch Announcement
+
+As the first section to launch this year, the 579WAi Digital Exchange is now in the final development phase. Following team evaluation, this platform is expected to be officially launched to all users by the end of July 2026, bringing a more efficient, transparent, and secure decentralized trading service to the community.
+
+IV. Security and Fund Commitment
+
+Sails always prioritizes the security of investor assets. Therefore, we do not have any fund holding pools; all funds are automatically transferred through the blockchain. We solemnly promise to the entire society: we will never touch a single penny of our clients' money. All fund flows adhere to the principles of openness, transparency, and traceability, resolutely preventing any misappropriation or embezzlement, and accepting joint supervision from all investors and regulatory agencies.
+
+Every step of 579WAi's growth is inseparable from your trust and support. We will continue to uphold the principles of compliance, stability, and innovation, advance various construction projects according to plan, and promptly report progress to the community.
+
+Thank you again for your support!
+
+Sails Company June 18, 2026`,
+    },
     hero: {
       title: "Exclusive BSC Investment",
       subtitle: "Secure USDT contribution with transparent on-chain stats and VIP rewards.",
@@ -93,6 +127,44 @@ export const strings = {
     brand: "Sails",
     tagline: "数字资产管理公司（新加坡）",
     nav: { home: "首页", sale: "投资" },
+    announcement: {
+      title: "公告",
+      confirm: "我知道了",
+      body: `
+官方公告
+致：尊敬的各位579WAi投资者及社区成员
+
+您好！
+
+自579WAi项目启动以来，感谢每一位投资者的信任与支持。为持续推进生态建设、优化资产交易体验，Sails公司现就近期核心工作部署及发展规划，正式公告如下：
+
+---
+
+一、流动性资金注入
+我们将会把百分之10的专项资金注入579WAi流动性并在确保安全的下永久锁定流动性  达到流动性的资金目标后我们将会开放579WAi交易
+
+二、Dapp生态板块建设
+
+在夯实流动性的基础上，我们将全面启动Dapp端多维度生态板块的建设工作，涵盖链上应用、资产管理、社区激励等方向，后续将分阶段推进，逐步丰富579WAi的应用场景与价值支撑。
+
+
+三、数字交易所板块上线预告
+
+作为本年度上线的第一个板块，579WAi数字交易所现已进入开发攻坚阶段。经团队评估，该板块预计将于 2026年7月底 正式面向全体用户推出，届时将为社区带来更高效、透明、安全的去中心化交易服务。
+
+
+四、安全与资金承诺
+
+Sails公司始终将投资者资产安全置于首位。所以我们不会存在资金沉淀池所有资金通过区块链自主到账 我们郑重向全社会承诺：永远不碰客户一分钱。所有资金流动均遵循公开、透明、可追溯的原则，坚决杜绝任何挪用、侵占行为，接受全体投资者与监管机构的共同监督。
+
+579WAi的每一步成长，都离不开您的信赖与陪伴。我们将继续秉持合规、稳健、创新的理念，按计划推进各项建设，并及时向社区通报进展。
+
+再次由衷感谢您的支持！
+
+Sails公司
+2026年6月18日
+`,
+    },
     hero: {
       title: "BSC 专属投资",
       subtitle: "USDT 安全参与，链上统计透明，VIP 奖励。",
