@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/i18n/context";
+import { useWalletAuth } from "@/context/WalletAuthContext";
 import { dappAbi } from "@/lib/abis";
 import { env, hasContractConfig } from "@/lib/env";
 import { formatUnits } from "viem";
@@ -23,9 +24,9 @@ function formatUsdt(raw: bigint | undefined): string {
 export function JoinStats() {
   const { t } = useI18n();
   const { address, isConnected } = useAccount();
+  const { isVerified } = useWalletAuth();
   const enabled = hasContractConfig();
-
-  
+  const canReadPersonal = enabled && Boolean(address) && isVerified;
   const { data: totalSale } = useReadContract({
     address: env.dappAddress,
     abi: dappAbi,
@@ -38,10 +39,14 @@ export function JoinStats() {
     abi: dappAbi,
     functionName: "privateSaleTotal",
     args: address ? [address] : undefined,
-    query: { enabled: enabled && Boolean(address) },
+    query: { enabled: canReadPersonal },
   });
 
-  const personal = isConnected ? formatUsdt(myContribution as bigint | undefined) : t.stats.connectHint;
+  const personal = isVerified
+    ? formatUsdt(myContribution as bigint | undefined)
+    : isConnected
+      ? t.wallet.verifyHint
+      : t.stats.connectHint;
   const chainAmount = totalSale ? Number(formatUnits(totalSale as bigint, 18)) : 0;
   const displayTotal = 78000 + chainAmount;
   

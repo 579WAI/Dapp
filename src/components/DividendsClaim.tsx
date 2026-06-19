@@ -1,6 +1,8 @@
 "use client";
 
 import { useI18n } from "@/i18n/context";
+import { WalletVerifyPrompt } from "@/components/WalletVerifyPrompt";
+import { useWalletAuth } from "@/context/WalletAuthContext";
 import { dappAbi, tokenAbi } from "@/lib/abis";
 import { env, hasContractConfig } from "@/lib/env";
 import { formatUnits } from "viem";
@@ -24,16 +26,18 @@ type DividendsClaimProps = {
 export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
   const { t } = useI18n();
   const { address, isConnected } = useAccount();
+  const { isVerified } = useWalletAuth();
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const configured = hasContractConfig();
+  const canReadPersonal = Boolean(address && configured && isVerified);
 
   const { data: pendingVip, refetch: refetchPendingVip } = useReadContract({
     address: env.dappAddress,
     abi: dappAbi,
     functionName: "pendingVipUsdt",
     args: address && configured ? [address] : undefined,
-    query: { enabled: Boolean(address && configured) },
+    query: { enabled: canReadPersonal },
   });
 
   const { data: pendingHolder, refetch: refetchPendingHolder } = useReadContract({
@@ -41,7 +45,7 @@ export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
     abi: tokenAbi,
     functionName: "pendingHolderUsdt",
     args: address && configured ? [address] : undefined,
-    query: { enabled: Boolean(address && configured) },
+    query: { enabled: canReadPersonal },
   });
 
   const { data: pendingLp, refetch: refetchPendingLp } = useReadContract({
@@ -49,7 +53,7 @@ export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
     abi: tokenAbi,
     functionName: "pendingLpCs",
     args: address && configured ? [address] : undefined,
-    query: { enabled: Boolean(address && configured) },
+    query: { enabled: canReadPersonal },
   });
 
   const refreshPendingBalances = useCallback(async () => {
@@ -107,16 +111,24 @@ export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
         <p className="mt-1 text-sm text-white/50">{t.dividends.subtitle}</p>
 
         {!configured && <p className="mt-4 text-sm text-red-400">{t.sale.configMissing}</p>}
+        {configured && isConnected && !isVerified ? (
+          <div className="mt-4">
+            <WalletVerifyPrompt />
+          </div>
+        ) : null}
 
+        {(!isConnected || isVerified) && (
         <div className="mt-6 space-y-4">
           <div className="rounded-xl border border-white/10 bg-navy/60 p-4">
             <p className="text-sm text-white/60">{t.dividends.vipUsdt}</p>
             <p className="mt-1 text-lg font-semibold text-white">
-              {fmtAmount(pendingVip as bigint | undefined, 18, "USDT")}
+              {isVerified
+                ? fmtAmount(pendingVip as bigint | undefined, 18, "USDT")
+                : "—"}
             </p>
             <button
               type="button"
-              disabled={!isConnected || busy || !configured || !canClaim(pendingVip as bigint | undefined)}
+              disabled={!isVerified || busy || !configured || !canClaim(pendingVip as bigint | undefined)}
               onClick={() => claim(env.dappAddress, dappAbi, "claimVipUsdt")}
               className="mt-3 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-navy disabled:opacity-40"
             >
@@ -131,7 +143,7 @@ export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
             </p>
             <button
               type="button"
-              disabled={!isConnected || busy || !configured || !canClaim(pendingHolder as bigint | undefined)}
+              disabled={!isVerified || busy || !configured || !canClaim(pendingHolder as bigint | undefined)}
               onClick={() => claim(env.tokenAddress, tokenAbi, "claimHolderUsdt")}
               className="mt-3 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-navy disabled:opacity-40"
             >
@@ -146,7 +158,7 @@ export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
             </p>
             <button
               type="button"
-              disabled={!isConnected || busy || !configured || !canClaim(pendingLp as bigint | undefined)}
+              disabled={!isVerified || busy || !configured || !canClaim(pendingLp as bigint | undefined)}
               onClick={() => claim(env.tokenAddress, tokenAbi, "claimLpCs")}
               className="mt-3 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-navy disabled:opacity-40"
             >
@@ -154,6 +166,7 @@ export function DividendsClaim({ embedded = false }: DividendsClaimProps) {
             </button>
           </div>
         </div>
+        )}
 
         {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
         {message && <p className="mt-4 text-sm text-emerald-400">{message}</p>}

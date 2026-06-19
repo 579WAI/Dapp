@@ -1,6 +1,8 @@
 "use client";
 
 import { useI18n } from "@/i18n/context";
+import { WalletVerifyPrompt } from "@/components/WalletVerifyPrompt";
+import { useWalletAuth } from "@/context/WalletAuthContext";
 import { dappAbi } from "@/lib/abis";
 import { buildInviteLink } from "@/lib/inviter";
 import { env, hasContractConfig } from "@/lib/env";
@@ -46,9 +48,10 @@ function GridStat({ label, value }: { label: string; value: string }) {
 export function TeamTab() {
   const { t } = useI18n();
   const { address, isConnected } = useAccount();
+  const { isVerified } = useWalletAuth();
   const configured = hasContractConfig();
   const [copyMsg, setCopyMsg] = useState<string | null>(null);
-  const enabled = configured && Boolean(address);
+  const enabled = configured && Boolean(address) && isVerified;
 
   const { data: vipLevel } = useReadContract({
     address: env.dappAddress,
@@ -115,6 +118,9 @@ export function TeamTab() {
         <p className="text-white/60">{t.stats.connectHint}</p>
       </div>
     );
+  }
+  if (!isVerified) {
+    return <WalletVerifyPrompt />;
   }
   if (!configured) return <p className="text-sm text-red-400">{t.sale.configMissing}</p>;
 

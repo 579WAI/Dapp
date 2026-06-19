@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/i18n/context";
+import { useWalletAuth } from "@/context/WalletAuthContext";
 import { dappAbi, erc20Abi } from "@/lib/abis";
 import { env, hasContractConfig } from "@/lib/env";
 import { isAddress, maxUint256, parseUnits } from "viem";
@@ -25,6 +26,7 @@ type PrivateSaleModalProps = {
 export function PrivateSaleModal({ open, onClose, defaultInviter = "" }: PrivateSaleModalProps) {
   const { t } = useI18n();
   const { address, isConnected } = useAccount();
+  const { isVerified } = useWalletAuth();
   const [amount, setAmount] = useState("");
   const [inviter, setInviter] = useState("");
   const [message, setMessage] = useState<string | null>(null);
@@ -47,7 +49,7 @@ export function PrivateSaleModal({ open, onClose, defaultInviter = "" }: Private
     };
   }, [open]);
 
-  const readEnabled = Boolean(open && address && configured);
+  const readEnabled = Boolean(open && address && configured && isVerified);
 
   const { data: myTotal } = useReadContract({
     address: env.dappAddress,
@@ -230,10 +232,10 @@ export function PrivateSaleModal({ open, onClose, defaultInviter = "" }: Private
         {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
         {message && <p className="mt-4 text-sm text-emerald-400">{message}</p>}
         <div className="mt-6 flex flex-col gap-3">
-          <button type="button" disabled={!isConnected || busy || !needsApprove} onClick={onApprove} className="w-full rounded-lg border border-gold/40 px-4 py-3 text-sm font-semibold text-gold transition hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-40">
+          <button type="button" disabled={!isVerified || busy || !needsApprove} onClick={onApprove} className="w-full rounded-lg border border-gold/40 px-4 py-3 text-sm font-semibold text-gold transition hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-40">
             {approving || approveConfirming ? t.sale.approving : t.sale.approve}
           </button>
-          <button type="button" disabled={!isConnected || busy || needsApprove} onClick={onContribute} className="w-full rounded-lg bg-gold px-4 py-3 text-sm font-semibold text-navy transition hover:bg-gold-glow disabled:cursor-not-allowed disabled:opacity-40">
+          <button type="button" disabled={!isVerified || busy || needsApprove} onClick={onContribute} className="w-full rounded-lg bg-gold px-4 py-3 text-sm font-semibold text-navy transition hover:bg-gold-glow disabled:cursor-not-allowed disabled:opacity-40">
             {contributing || contributeConfirming ? t.sale.contributing : t.sale.contribute}
           </button>
         </div>
