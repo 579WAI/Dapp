@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/i18n/context";
 
-export type AppTab = "join" | "assets" | "team";
+export type AppTab = "join" | "assets" | "team" | "contact";
 
 type BottomNavProps = {
   active: AppTab;
@@ -25,16 +25,23 @@ function TabIcon({ tab }: { tab: AppTab }) {
       </svg>
     );
   }
+  if (tab === "team") {
+    return (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    );
+  }
   return (
     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 20l.8-3.6A8.96 8.96 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
     </svg>
   );
 }
 
 export function BottomNav({ active, onChange }: BottomNavProps) {
   const { t } = useI18n();
-  const tabs: AppTab[] = ["join", "assets", "team"];
+  const tabs: AppTab[] = ["join", "assets", "team", "contact"];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-gold/20 bg-navy/95 backdrop-blur-md pb-[env(safe-area-inset-bottom)]">

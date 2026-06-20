@@ -5,19 +5,25 @@ import Link from "next/link";
 import { useI18n } from "@/i18n/context";
 import { CONTACT_QR_IMAGE, CONTACT_URL } from "@/lib/contact";
 
-export function ContactPage() {
+type ContactPageProps = {
+  embedded?: boolean;
+};
+
+export function ContactPage({ embedded = false }: ContactPageProps) {
   const { t } = useI18n();
 
   return (
     <section className="pb-8">
       <div className="mb-6 flex items-center justify-between gap-4">
         <h1 className="font-display text-2xl text-white">{t.contact.title}</h1>
-        <Link
-          href="/"
-          className="shrink-0 rounded-lg border border-gold/30 px-3 py-1.5 text-xs text-gold transition hover:bg-gold/10"
-        >
-          {t.contact.backHome}
-        </Link>
+        {!embedded ? (
+          <Link
+            href="/"
+            className="shrink-0 rounded-lg border border-gold/30 px-3 py-1.5 text-xs text-gold transition hover:bg-gold/10"
+          >
+            {t.contact.backHome}
+          </Link>
+        ) : null}
       </div>
 
       <p className="text-sm leading-relaxed text-white/65">{t.contact.subtitle}</p>

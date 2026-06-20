@@ -4,6 +4,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AnnouncementModal } from "@/components/AnnouncementModal";
 import { BottomNav, type AppTab } from "@/components/BottomNav";
+import { ContactPage } from "@/components/ContactPage";
 import { DividendsClaim } from "@/components/DividendsClaim";
 import { Hero } from "@/components/Hero";
 import { JoinStats } from "@/components/JoinStats";
@@ -48,6 +49,7 @@ function DappShellInner() {
       )}
       {tab === "assets" && <DividendsClaim embedded />}
       {tab === "team" && <TeamTab />}
+      {tab === "contact" && <ContactPage embedded />}
 
       {ANNOUNCEMENT_ENABLED && (
         <AnnouncementModal open={announcementOpen} onClose={closeAnnouncement} />

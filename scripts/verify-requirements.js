@@ -7,7 +7,7 @@ const checks = [
   ['components/PrivateSaleModal.tsx', ['MIN = 100', 'MAX = 5000', 'maxUint256', 'privateSale', 'inviter', 'privateSaleTotal', 'cumulativeCap']],
   ['components/JoinStats.tsx', ['teamPerformance', 'privateSaleTotal']],
   ['components/TeamTab.tsx', ['getEffectiveVipLevel', 'teamPerformance', 'directReferralCount', 'copyInviteLink']],
-  ['components/BottomNav.tsx', ['join', 'assets', 'team']],
+  ['components/BottomNav.tsx', ['join', 'assets', 'team', 'contact']],
   ['components/DappShell.tsx', ['PrivateSaleModal', 'BottomNav']],
   ['components/NetworkGuard.tsx', ['switchChain', 'SUPPORTED_CHAIN_ID']],
   ['components/Hero.tsx', ['hero']],

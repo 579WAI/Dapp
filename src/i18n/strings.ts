@@ -114,7 +114,7 @@ Sails Company June 18, 2026`,
       switching: "Switching…",
     },
     lang: { en: "EN", zh: "中文" },
-    tabs: { join: "Join", assets: "Assets", team: "Team" },
+    tabs: { join: "Join", assets: "Assets", team: "Team", contact: "Contact" },
     team: {
       vipRoute: "VIP level",
       copyInviteLink: "Copy invite link",
@@ -253,7 +253,7 @@ Sails公司
       switching: "切换中…",
     },
     lang: { en: "EN", zh: "中文" },
-    tabs: { join: "参加", assets: "资产", team: "团队" },
+    tabs: { join: "参加", assets: "资产", team: "团队", contact: "联系" },
     team: {
       vipRoute: "VIP 等级路线",
       copyInviteLink: "复制邀请链接",
