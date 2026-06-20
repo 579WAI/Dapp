@@ -13,7 +13,7 @@ import { TeamTab } from "@/components/TeamTab";
 import { parseInviterFromSearch } from "@/lib/inviter";
 
 /** 公告总开关：true = 每次进入都弹；false = 完全不弹 */
-const ANNOUNCEMENT_ENABLED = true;
+const ANNOUNCEMENT_ENABLED = false;
 
 function DappShellInner() {
   const searchParams = useSearchParams();
