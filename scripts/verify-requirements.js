@@ -5,7 +5,7 @@ const checks = [
   ['i18n/strings.ts', ['en:', 'zh:', 'totalSale', 'myContribution', 'vipLevel', 'teamPerformance', 'approve', '5000']],
   ['components/Header.tsx', ['setLocale', 'ConnectWallet', 'locale === "en"', 'locale === "zh"']],
   ['components/PrivateSaleModal.tsx', ['MIN = 100', 'MAX = 5000', 'maxUint256', 'privateSale', 'inviter', 'privateSaleTotal', 'cumulativeCap']],
-  ['components/JoinStats.tsx', ['totalPrivateSaleUsdt', 'privateSaleTotal']],
+  ['components/JoinStats.tsx', ['teamPerformance', 'privateSaleTotal']],
   ['components/TeamTab.tsx', ['getEffectiveVipLevel', 'teamPerformance', 'directReferralCount', 'copyInviteLink']],
   ['components/BottomNav.tsx', ['join', 'assets', 'team']],
   ['components/DappShell.tsx', ['PrivateSaleModal', 'BottomNav']],

@@ -27,11 +27,13 @@ export function JoinStats() {
   const { isVerified } = useWalletAuth();
   const enabled = hasContractConfig();
   const canReadPersonal = enabled && Boolean(address) && isVerified;
-  const { data: totalSale } = useReadContract({
+
+  const { data: teamPerf } = useReadContract({
     address: env.dappAddress,
     abi: dappAbi,
-    functionName: "totalPrivateSaleUsdt",
-    query: { enabled },
+    functionName: "teamPerformance",
+    args: address ? [address] : undefined,
+    query: { enabled: canReadPersonal },
   });
 
   const { data: myContribution } = useReadContract({
@@ -42,23 +44,23 @@ export function JoinStats() {
     query: { enabled: canReadPersonal },
   });
 
+  const teamPerformance = isVerified
+    ? formatUsdt(teamPerf as bigint | undefined)
+    : isConnected
+      ? t.wallet.verifyHint
+      : t.stats.connectHint;
+
   const personal = isVerified
     ? formatUsdt(myContribution as bigint | undefined)
     : isConnected
       ? t.wallet.verifyHint
       : t.stats.connectHint;
-  const chainAmount = totalSale ? Number(formatUnits(totalSale as bigint, 18)) : 0;
-  const displayTotal = 78000 + chainAmount;
-  
+
   return (
     <section className="mt-8">
       <h2 className="font-display text-xl text-white">{t.stats.title}</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        {/*<StatCard label={t.stats.totalSale} value={formatUsdt(totalSale as bigint | undefined)} />*/}
-        <StatCard
-          label={t.stats.totalSale}
-          value={displayTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-        />
+        <StatCard label={t.stats.totalSale} value={teamPerformance} />
         <StatCard label={t.stats.myContribution} value={personal} />
       </div>
     </section>

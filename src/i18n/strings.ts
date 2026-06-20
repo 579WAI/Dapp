@@ -56,7 +56,7 @@ Sails Company June 18, 2026`,
     },
     stats: {
       title: "Live Statistics",
-      totalSale: "Total Investment (USDT)",
+      totalSale: "Team performance (5 gen)",
       myContribution: "My Contribution (USDT)",
       vipLevel: "VIP Level",
       teamPerformance: "Team Performance",
@@ -187,7 +187,7 @@ Sails公司
     },
     stats: {
       title: "实时数据",
-      totalSale: "投资总额 (USDT)",
+      totalSale: "团队业绩（5代）",
       myContribution: "我的贡献 (USDT)",
       vipLevel: "VIP 等级",
       teamPerformance: "团队业绩",
